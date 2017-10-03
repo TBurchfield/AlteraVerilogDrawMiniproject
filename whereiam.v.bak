@@ -1,0 +1,5 @@
+module whereiam(
+		input [3:0] directions,
+		input timer,
+		output [7:0] x,
+		output [7:0] y);

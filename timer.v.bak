@@ -1,0 +1,12 @@
+module timer (
+	input clk,
+	reg out );
+	
+	reg [22:0] count;
+	
+	initial begin
+		count = 
+	
+	always @timer
+
+endmodule

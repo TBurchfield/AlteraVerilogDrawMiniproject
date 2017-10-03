@@ -1,0 +1,10 @@
+
+
+C:/Users/tmarsha8/Desktop/AlteraVerilogDrawMiniproject/vga_pll.v
+
+Oct 03 03PM:41:25>: Error in CNX file format.
+
+Error messages are listed in file
+C:/Users/tmarsha8/Desktop/AlteraVerilogDrawMiniproject/vga_pll.cnxerr.
+
+Can't create the custom megafunction variation file(s)
