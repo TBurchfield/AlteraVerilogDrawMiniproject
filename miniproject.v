@@ -1,7 +1,8 @@
 module miniproject(
-	input KEY, // KEY[i] refers to ith key
-	input SW[3:0],
+	input [3:0]KEY, // KEY[i] refers to ith key
+	input [3:0]SW,
 	input CLOCK_50,
+	output			[2:0]LEDR,
 	output			VGA_CLK,   				//	VGA Clock
 	output			VGA_HS,					//	VGA H_SYNC
 	output			VGA_VS,					//	VGA V_SYNC
@@ -11,8 +12,8 @@ module miniproject(
 	output [9:0]	VGA_G,	 				//	VGA Green[9:0]
 	output [9:0]	VGA_B	   				//	VGA Blue[9:0]
 	);
-	wire [7:0]x; //TODO: check what values each corner correspond to
-	wire [7:0]y;
+	reg [7:0]x; //TODO: check what values each corner correspond to
+	reg [7:0]y;
 	wire timer;
 	
 	
@@ -27,9 +28,15 @@ module miniproject(
 		.clk		(CLOCK_50)
 	);
 	
-	holdsxy whereiam(
+	ledassign ledassign1(
+		.clk		(CLOCK_50),
+		.leds		(LEDR[2:0]),
+		.switches	(SW[2:0])
+	);
+	
+	whereiam holdsxy(
 		.directions	(KEY),
-		.timer		(timer)
+		.timer		(timer),
 		.x				(x),
 		.y				(y)
 	);
