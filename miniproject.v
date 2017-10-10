@@ -2,7 +2,7 @@ module miniproject(
 	input [3:0]KEY, // KEY[i] refers to ith key
 	input [3:0]SW,
 	input CLOCK_50,
-	output			[2:0]LEDR,
+	output			[7:0]LEDR,
 	output			VGA_CLK,   				//	VGA Clock
 	output			VGA_HS,					//	VGA H_SYNC
 	output			VGA_VS,					//	VGA V_SYNC
@@ -12,41 +12,36 @@ module miniproject(
 	output [9:0]	VGA_G,	 				//	VGA Green[9:0]
 	output [9:0]	VGA_B	   				//	VGA Blue[9:0]
 	);
-	reg [7:0]x; //TODO: check what values each corner correspond to
-	reg [7:0]y;
+	
 	wire timer;
-	
-	
-	initial begin
-		x = 0;
-		y = 0;
-	end
-	
 	
 	timer timertenth( //tenth second timer
 		.timer	(timer),
 		.clk		(CLOCK_50)
 	);
 	
-	ledassign ledassign1(
-		.clk		(CLOCK_50),
-		.leds		(LEDR[2:0]),
-		.switches	(SW[2:0])
-	);
+	wire [7:0] sX;
+	wire [7:0] sY;
+	wire sDraw_en;
+	wire [2:0] sColour;
 	
-	whereiam holdsxy(
-		.directions	(KEY),
-		.timer		(timer),
-		.x				(x),
-		.y				(y)
-	);
+	
+	
+	stateMachine state(.clk (timer),
+							.colour (sColour),
+							.draw_en (sDraw_en),
+							.x (sX),
+							.y (sY),
+							.led (LEDR[7:0]),
+							.key (KEY)
+							);
 
 	vga_adapter VGA(
 		.resetn		(SW[3]),
 		.clock		(CLOCK_50),
-		.colour		(SW[2:0]),
-		.x				(x),
-		.y				(y),
+		.colour		(sColour),
+		.x				(sX),
+		.y				(sY),
 		.plot			(1'b1),
 		/* Signals for the DAC to drive the monitor. */
 		.VGA_R		(VGA_R),

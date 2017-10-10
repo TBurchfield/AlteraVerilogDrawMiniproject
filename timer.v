@@ -13,7 +13,7 @@ module timer (
 	
 		count <= count + 1;
 		
-		if (count == 2500000) begin
+		if (count == 250000) begin
 			count <= 0;
 			timer <= ~timer;
 		end
