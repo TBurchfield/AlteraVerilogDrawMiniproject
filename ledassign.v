@@ -4,7 +4,7 @@ module ledassign (
 	output reg [2:0]leds);
 	
 	always @(posedge clk) begin
-			leds = ~switches;
+			leds = switches;
 	end
 
 endmodule
